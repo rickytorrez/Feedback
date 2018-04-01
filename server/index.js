@@ -2,8 +2,8 @@
 const express   = require('express');
 const mongoose  = require('mongoose');
 const keys      = require('./config/keys')
-require('./services/passport');
-require('./models/User');
+require('./models/User');                                   // Order of operations should create the model first
+require('./services/passport');                             // So passport can use it once it's set up
 
 mongoose.connect(keys.mongoURI);
 
