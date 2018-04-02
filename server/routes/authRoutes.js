@@ -10,5 +10,25 @@ module.exports = (app) => {
     );
 
     /******     EXCHANGE THE CODE FOR THE USER PROFILE   *****/
-    app.get('/auth/google/callback', passport.authenticate('google'));
+    app.get(
+        '/auth/google/callback', 
+        passport.authenticate('google')
+    );
+
+    /******     LOGS USER OUT   *****/
+    app.get(
+        '/api/logout', 
+        (req, res) => {
+        req.logout();
+        res.send(req.user);
+        }
+    );
+
+    /******     AUTHENTICATION ROUTE ONCE USER LOGS IN   *****/
+    app.get(
+        '/api/current_user', 
+        (req, res) => {
+            res.send(req.user);
+        }
+    );
 };
