@@ -17,7 +17,7 @@ passport.deserializeUser((id, done) => {
 });
 
 
-/******     PASSPORT SET UP FOR GOOGLE     *****/
+/******     PASSPORT SET UP FOR GOOGLE    *****/
 /******     STRATEGY     *****/
 passport.use(
     new GoogleStrategy({
