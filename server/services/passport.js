@@ -29,7 +29,7 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
         const existingUser = await User.findOne({ googleId: profile.id })               // Look through users collection, find the first record of a googleID equals to the profileID                                                                             
         if (existingUser) {                                                             // We already have a record with the given profileID
-            done(null, existingUser);
+            return done(null, existingUser);
         } else {                                                                        // We don't have a user record with this ID, make a new record 
         const user = await new User ({ googleId: profile.id }) .save();                 // Creates a new model instance of a user and 
         done(null, user);          
