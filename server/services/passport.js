@@ -26,17 +26,13 @@ passport.use(
         callbackURL:    '/auth/google/callback',
         proxy: true
     }, 
-    (accessToken, refreshToken, profile, done) => {
-        User.findOne({ googleId: profile.id })                                      // Look through users collection, find the first record of a googleID equals to the profileID
-            .then((existingUser) => {                                               // Model instance that represents if a user was found
-                if (existingUser) {                                                 // We already have a record with the given profileID
-                    done(null, existingUser);
-                } else {                                                            // We don't have a user record with this ID, make a new record 
-                    new User ({ googleId: profile.id })                             // Creates a new model instance of a user and 
-                        .save()                                                     // Saves to the database
-                        .then(user => done(null, user))
-                }
-            });
+    async (accessToken, refreshToken, profile, done) => {
+        const existingUser = await User.findOne({ googleId: profile.id })               // Look through users collection, find the first record of a googleID equals to the profileID                                                                             
+        if (existingUser) {                                                             // We already have a record with the given profileID
+            done(null, existingUser);
+        } else {                                                                        // We don't have a user record with this ID, make a new record 
+        const user = await new User ({ googleId: profile.id }) .save();                 // Creates a new model instance of a user and 
+        done(null, user);          
         }
-    )
+    })
 );
