@@ -2,7 +2,7 @@ import axios from 'axios';
 import { FETCH_USER } from './types';
 
 
-//  AXIOS API CHECKING FOR CURRENT USER
+//  AXIOS API CHECKING 
 const fetchUser = () => {
     return function(dispatch) {
         axios.get('/api/current_user')
